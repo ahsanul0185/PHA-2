@@ -2,6 +2,7 @@ import express from "express";
 import config from "./config";
 import initDB from "./config/db";
 import { authRoutes } from "./modules/auth/auth.routes";
+import { userRoutes } from "./modules/users/users.route";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get("/", (_, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

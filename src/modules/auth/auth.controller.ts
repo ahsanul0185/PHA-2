@@ -51,7 +51,7 @@ const signupUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Error in singupUser controller",
+      message: "Internal server error",
       errors: error,
     });
   }
@@ -113,7 +113,7 @@ const signinUser = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Error in singinUser controller",
+      message: "Internal server error",
       errors: error,
     });
   }
