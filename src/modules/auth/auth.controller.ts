@@ -48,11 +48,11 @@ const signupUser = async (req: Request, res: Response) => {
       message: "User registered successfully",
       data: result,
     });
-  } catch (error) {
+  } catch (error : any) {
     res.status(500).json({
       success: false,
       message: "Internal server error",
-      errors: error,
+      errors: error.message,
     });
   }
 };
@@ -73,7 +73,7 @@ const signinUser = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ success: false, message: "Invalid email format" });
-    }
+    } 
 
     if (password.length < 6) {
       return res.status(400).json({
@@ -110,11 +110,11 @@ const signinUser = async (req: Request, res: Response) => {
         user: result.user,
       },
     });
-  } catch (error) {
+  } catch (error : any) {
     res.status(500).json({
       success: false,
       message: "Internal server error",
-      errors: error,
+      errors: error.message,
     });
   }
 };

@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import { UserRole } from "../modules/auth/auth.types";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import config from "../config";
+import { pool } from "../config/db";
 
 const auth = (...roles: UserRole[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -26,14 +27,28 @@ const auth = (...roles: UserRole[]) => {
         });
       }
 
-      if (roles.length > 0 && !roles.includes(decoded.role)) {
+      const userResult = await pool.query(
+        `SELECT id, name, email, phone, role FROM users WHERE email=$1`,
+        [decoded.email]
+      );
+
+      if (userResult.rows.length === 0) {
+        return res.status(401).json({
+          success: false,
+          message: "User no longer exists.",
+        });
+      }
+
+      const user = userResult.rows[0];
+
+      if (roles.length > 0 && !roles.includes(user.role)) {
         return res.status(403).json({
           success: false,
           message: "Unauthorized. You are not allowed to access this resource.",
         });
       }
 
-      req.user = decoded;
+      req.user = user;
 
       return next();
     } catch (error: any) {

@@ -28,7 +28,14 @@ const signinUser = async (payload: {
     return { success: false, message: "Password didn't match" };
   }
 
-  const token = jwt.sign(user, config.jwt_sectret, { expiresIn: "7d" });
+  const jwtPayload = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role : user.role,
+  };
+
+  const token = jwt.sign(jwtPayload, config.jwt_sectret, { expiresIn: "7d" });
 
   const { password: hashedPass, created_at, updated_at, ...userData } = user;
 
