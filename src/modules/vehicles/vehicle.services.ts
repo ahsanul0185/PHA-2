@@ -29,10 +29,7 @@ const createVehicle = async (payload: Record<string, any>) => {
     ]
   );
 
-  const newVehicle = result.rows[0];
-  newVehicle.daily_rent_price = parseFloat(newVehicle.daily_rent_price);
-
-  return newVehicle;
+  return result.rows[0];
 };
 
 
@@ -52,9 +49,7 @@ const getVehicleById = async (payload: Record<string, unknown>) => {
     return { success: false, message: "No vehicle found with the id" };
   }
 
-  const vehicle = result.rows[0];
-  result.rows[0].daily_rent_price = parseFloat(vehicle.daily_rent_price);
-  return {success : true, data : vehicle};
+  return {success : true, data : result.rows[0]};
   
 };
 
@@ -87,9 +82,8 @@ const updateVehicle = async (payload: Record<string, unknown>) => {
     return { success: false, message: "No vehicle found with the id" };
   }
 
-  const vehicle = result.rows[0];
-  result.rows[0].daily_rent_price = parseFloat(vehicle.daily_rent_price);
-  return {success : true, data : vehicle};
+
+  return {success : true, data : result.rows[0]};
   
 };
 
