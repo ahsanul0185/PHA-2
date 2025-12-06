@@ -34,24 +34,22 @@ const createBooking = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
 
-const getAllBookings = async (req : Request, res : Response) => {
-
+const getAllBookings = async (req: Request, res: Response) => {
   try {
-
-    const result = await bookingServices.getAllBookings({user : req.user});
+    const result = await bookingServices.getAllBookings({ user: req.user });
 
     if (result.rows.length === 0) {
       res.status(200).json({
         success: true,
         message: "No bookings found",
         data: [],
-      })
+      });
     }
 
     res.status(200).json({
@@ -59,14 +57,65 @@ const getAllBookings = async (req : Request, res : Response) => {
       message: "Bookings retrieved successfully",
       data: result.rows,
     });
-    
-  }  catch (error: any) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
-}
+};
 
-export const bookingController = { createBooking, getAllBookings };
+const updateBooking = async (req: Request, res: Response) => {
+  const { bookingId } = req.params;
+  const { status} = req.body;
+
+  try {
+
+    if (!status) {
+      return res.status(400).json({
+        success: false,
+        message: "Status is required",
+      })
+    }
+
+    if (!['active', 'cancelled', 'returned'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Status must be 'active', 'cancelled' or 'returned'",
+      })
+    }
+
+    const result = await bookingServices.updateBooking({
+      bookingId,
+      status,
+      user : req.user,
+    });
+
+    if (!result?.success) {
+      return res.status(400).json({
+        success: false,
+        message: result?.message,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: result.message,
+      data: result.data,
+    });
+
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      errors: error,
+    });
+  }
+};
+
+export const bookingController = {
+  createBooking,
+  getAllBookings,
+  updateBooking,
+};

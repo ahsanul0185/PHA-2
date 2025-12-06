@@ -22,8 +22,8 @@ const getAllUsers = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -59,8 +59,8 @@ const updateUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -87,8 +87,8 @@ const deleteUser = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };

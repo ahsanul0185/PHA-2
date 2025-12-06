@@ -47,8 +47,8 @@ const createVehicle = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -73,8 +73,8 @@ const getAllVehicles = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -101,8 +101,8 @@ const getVehicleById = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -130,8 +130,8 @@ const updateVehicle = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -160,8 +160,8 @@ const deleteVehicle = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };

@@ -48,11 +48,11 @@ const signupUser = async (req: Request, res: Response) => {
       message: "User registered successfully",
       data: result,
     });
-  } catch (error : any) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
@@ -110,11 +110,11 @@ const signinUser = async (req: Request, res: Response) => {
         user: result.user,
       },
     });
-  } catch (error : any) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: "Internal server error",
-      errors: error.message,
+      message: error.message,
+      errors: error,
     });
   }
 };
