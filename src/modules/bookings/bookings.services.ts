@@ -134,7 +134,7 @@ const updateBooking = async (payload : Record<string, any>) => {
 
     }
     
-    return {success : false, message : "Not authorized"}
+    return {success : false, message : "Invalid action"}
 
     
 }

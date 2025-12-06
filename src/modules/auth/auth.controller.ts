@@ -6,7 +6,7 @@ const signupUser = async (req: Request, res: Response) => {
   const { name, email, password, phone, role } = req.body;
 
   try {
-    if (!name || !email || !password || !phone || !role) {
+    if (!name || !email || !password || !phone) {
       res.status(400).json({
         success: false,
         message: "All fields are required",
@@ -27,7 +27,7 @@ const signupUser = async (req: Request, res: Response) => {
       });
     }
 
-    if (!Object.values(UserRole).includes(role)) {
+    if (role && !Object.values(UserRole).includes(role)) {
       return res.status(400).json({
         success: false,
         message: "Role must be 'admin' or 'customer'",
