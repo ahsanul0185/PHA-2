@@ -5,8 +5,8 @@ import { UserRole } from '../auth/auth.types';
 
 const router = Router();
 
-router.post("/", auth(UserRole.Admin), bookingController.createBooking);
-// router.get("/", bookingController.getAllBookings);
+router.post("/", auth(UserRole.Admin, UserRole.Customer), bookingController.createBooking);
+router.get("/", auth(UserRole.Admin, UserRole.Customer), bookingController.getAllBookings);
 // router.put("/:bookingId", bookingController.updateBooking);
 
 

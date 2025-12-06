@@ -40,4 +40,33 @@ const createBooking = async (req: Request, res: Response) => {
   }
 };
 
-export const bookingController = { createBooking };
+const getAllBookings = async (req : Request, res : Response) => {
+
+  try {
+
+    const result = await bookingServices.getAllBookings({user : req.user});
+
+    if (result.rows.length === 0) {
+      res.status(200).json({
+        success: true,
+        message: "No bookings found",
+        data: [],
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Bookings retrieved successfully",
+      data: result.rows,
+    });
+    
+  }  catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      errors: error.message,
+    });
+  }
+}
+
+export const bookingController = { createBooking, getAllBookings };

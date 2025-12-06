@@ -1,4 +1,5 @@
 import { pool } from "../../config/db";
+import { UserRole, type User } from "../auth/auth.types";
 
 const createBooking = async (payload: Record<string, unknown>) => {
   const { customer_id, vehicle_id, rent_start_date, rent_end_date } = payload;
@@ -39,8 +40,6 @@ const createBooking = async (payload: Record<string, unknown>) => {
   const number_of_days =
     (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  console.log({ rent_start_date, rent_end_date });
-
   const total_price = daily_rent_price * number_of_days;
 
   const result = await pool.query(
@@ -69,4 +68,19 @@ const createBooking = async (payload: Record<string, unknown>) => {
   return { success: true, data: responseData };
 };
 
-export const bookingServices = { createBooking };
+
+const getAllBookings = async (payload: Record<string, any>) => {
+    const user : User = payload.user;
+
+    if (user.role === UserRole.Admin) {
+        const result = await pool.query(`SELECT * FROM bookings`)
+        return result
+    }
+
+    const result = await pool.query(`SELECT * FROM bookings WHERE customer_id = $1`, [user.id])
+
+   return result
+
+}
+
+export const bookingServices = { createBooking, getAllBookings};
