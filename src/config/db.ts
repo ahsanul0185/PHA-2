@@ -13,7 +13,7 @@ const initDB = async () => {
             email VARCHAR(100) UNIQUE NOT NULL CHECK (email = LOWER(email)),
             password TEXT NOT NULL CHECK (char_length(password) >= 6),
             phone VARCHAR(20) NOT NULL,
-            role VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'customer')) DEFAULT 'customer',
+            role VARCHAR(20) CHECK (role IN ('admin', 'customer')) DEFAULT 'customer',
             created_at TIMESTAMP DEFAULT NOW(),
             updated_at TIMESTAMP DEFAULT NOW()
         )
