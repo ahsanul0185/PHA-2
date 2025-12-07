@@ -95,7 +95,7 @@ const getVehicleById = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: "Vehicles retrieved successfully",
+      message: "Vehicle retrieved successfully",
       data: result.data,
     });
   } catch (error: any) {
@@ -110,7 +110,7 @@ const getVehicleById = async (req: Request, res: Response) => {
 
 const updateVehicle = async (req: Request, res: Response) => {
   const { vehicleId } = req.params;
-
+ 
   try {
     const result = await vehicleServices.updateVehicle({ vehicleId, ...req.body });
 
@@ -118,13 +118,13 @@ const updateVehicle = async (req: Request, res: Response) => {
       res.status(200).json({
         success: true,
         message: result.message,
-        data: [],
+        data: [], 
       });
     }
 
     res.status(200).json({
       success: true,
-      message: "Vehicles retrieved successfully",
+      message: "Vehicle updated successfully",
       data: result.data,
     });
   } catch (error: any) {
