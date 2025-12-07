@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { authServices } from "./auth.services";
-import { UserRole } from "./auth.types";
-
+import { UserRole } from "../../types/auth";
+ 
 const signupUser = async (req: Request, res: Response) => {
   const { name, email, password, phone, role } = req.body;
 
@@ -73,7 +73,7 @@ const signinUser = async (req: Request, res: Response) => {
       return res
         .status(400)
         .json({ success: false, message: "Invalid email format" });
-    } 
+    }
 
     if (password.length < 6) {
       return res.status(400).json({

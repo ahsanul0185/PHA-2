@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { userServices } from "./users.services";
-import { UserRole } from "../auth/auth.types";
+import { UserRole } from "../../types/auth";
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {

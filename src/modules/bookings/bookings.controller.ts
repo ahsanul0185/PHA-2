@@ -17,6 +17,7 @@ const createBooking = async (req: Request, res: Response) => {
       vehicle_id,
       rent_start_date,
       rent_end_date,
+      user : req.user
     });
 
     if (!result?.success) {
@@ -52,10 +53,12 @@ const getAllBookings = async (req: Request, res: Response) => {
       });
     }
 
+    const updatedBookings = await bookingServices.autoReturnBookings({bookings : result.rows})
+
     res.status(200).json({
       success: true,
       message: "Bookings retrieved successfully",
-      data: result.rows,
+      data: updatedBookings,
     });
   } catch (error: any) {
     res.status(500).json({

@@ -38,20 +38,25 @@ const updateUser = async (paylaod: Record<string, unknown>) => {
 };
 
 const deleteUser = async (paylaod: Record<string, unknown>) => {
-    const {userId} = paylaod;
+  const { userId } = paylaod;
 
-    const bookingResult = await pool.query(`SELECT * FROM bookings WHERE customer_id = $1 AND status = 'active'`, [userId]);
+  const bookingResult = await pool.query(
+    `SELECT * FROM bookings WHERE customer_id = $1 AND status = 'active'`,
+    [userId]
+  );
 
-    if (bookingResult.rows.length > 0) {
-        return { success: false, message: "User has active bookings" };
-    }
+  if (bookingResult.rows.length > 0) {
+    return { success: false, message: "User has active bookings" };
+  }
 
-    const result = await pool.query(`DELETE from users WHERE id = $1 RETURNING *`, [userId])
+  const result = await pool.query(
+    `DELETE from users WHERE id = $1 RETURNING *`,
+    [userId]
+  );
   if (result.rows.length === 0) {
     return { success: false, message: "No users found with the id" };
   }
-    return {success : true}
-
-}
+  return { success: true };
+};
 
 export const userServices = { getAllUsers, updateUser, deleteUser };
