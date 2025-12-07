@@ -68,5 +68,5 @@ npm run build
 
 ---
 
-* **GitHub Repo:** [https://github.com/ahsanul0185/PHA-2](Github)
-* **Live Deployment:** [https://vehicle-rental-system-ecru.vercel.app](Live link)
+* **GitHub Repo:** https://github.com/ahsanul0185/PHA-2
+* **Live Deployment:** https://vehicle-rental-system-ecru.vercel.app
